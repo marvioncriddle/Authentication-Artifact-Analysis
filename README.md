@@ -1,5 +1,5 @@
 # Authentication-Artifact-Analysis
-[Event Viewer](https://i.imgur.com/pPeuLyO.jpg)
+[Event Viewer](https://i.imgur.com/pPeuLyO.png)
 
 ## Overview
 
