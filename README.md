@@ -1,4 +1,4 @@
-# Authentication-Artifact-Analysis
+# Authentication Artifact Analysis
 <img align="center" src="https://i.imgur.com/GtZorHR.png" />
 
 ## Overview
