@@ -1,5 +1,5 @@
 # Authentication-Artifact-Analysis
-![Cloud Honeynet / SOC](https://i.imgur.com/a/Iz2C7bi)
+(https://i.imgur.com/a/Iz2C7bi)
 
 ## Overview
 
