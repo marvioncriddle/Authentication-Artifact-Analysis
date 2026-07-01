@@ -48,4 +48,4 @@ Ensure you are working from this evidence file rather than a live system. Mainta
 ### Step 2: Identify Successful Authentication
 Filter the Security log for Event ID 4624
 
-<img align="center" width="400px" src="https://i.imgur.com/LOE1M34.png" />
+<img align="center" width="400px" src="https://i.imgur.com/gqi6o3O.png" />
