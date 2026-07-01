@@ -1,5 +1,5 @@
 # Authentication-Artifact-Analysis
-[Imgur](https://imgur.com/pPeuLyO)
+<img src="https://imgur.com/pPeuLyO" />
 
 ## Overview
 
