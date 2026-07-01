@@ -1,5 +1,5 @@
 # Authentication-Artifact-Analysis
-
+![Cloud Honeynet / SOC](https://i.imgur.com/a/Iz2C7bi)
 
 ## Overview
 
@@ -17,9 +17,12 @@ As the DFIR analyst assigned to the case, you have been provided with preserved 
 ## Learning Objectives
 
 After completing this lab, you should be able to:
-•	Analyze Windows authentication events
-•	Investigate Windows account lockouts
-•	Interpret Security Event IDs related to authentication
-•	Differentiate failed and successful logon attempts
-•	Identify the source of authentication attempts
-•	Document investigative findings using professional DFIR methodology
+- Analyze Windows authentication events
+- Investigate Windows account lockouts
+- Interpret Security Event IDs related to authentication
+- Differentiate failed and successful logon attempts
+- Identify the source of authentication attempts
+- Document investigative findings using professional DFIR methodology
+
+
+
