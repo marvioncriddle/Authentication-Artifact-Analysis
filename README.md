@@ -37,4 +37,14 @@ This investigation focuses on several key Windows Security events.
 Primary evidence source:
 Security.evtx
 
+## Investigation Workflow
+The investigation follows a methodology commonly used during enterprise DFIR engagements.
+1.	Review Provided Evidence
+
+You have been provided with a preserved Windows Security Event Log (Security.evtx).
+
+Ensure you are working from this evidence file rather than a live system. Maintaining the integrity of original evidence is a fundamental forensic principle and allows investigators to revisit findings without altering the source data.
+
+2.  Identify Successful Authentication
+Filter the Security log for Event ID 4624
 
