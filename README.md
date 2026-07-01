@@ -1,5 +1,5 @@
 # Authentication-Artifact-Analysis
-<blockquote class="imgur-embed-pub" lang="en" data-id="a/Iz2C7bi" data-context="false" ><a href="//imgur.com/a/Iz2C7bi"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+[Imgur](https://imgur.com/pPeuLyO)
 
 ## Overview
 
