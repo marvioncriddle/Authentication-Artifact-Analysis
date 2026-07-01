@@ -30,9 +30,9 @@ This investigation focuses on several key Windows Security events.
 
 | <h3>Event ID</h3>	| <h3>Description</h3>       |
 | ----------------- | -------------------------- |
-|<b>4625</b>	      | <b>Failed logon attempt</b>|
-|<b>4624</b>        | <b>Successful logon</b>    |
-|<b>4740</b>        | <b>Account locked out</b>  |
+|<p>4625</p>	      | <p>Failed logon attempt</p>|
+|<p>4624</p>        | <p>Successful logon</p>    |
+|<p>4740</p>        | <p>Account locked out</p>  |
 
 Primary evidence source:
 Security.evtx
