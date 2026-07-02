@@ -55,7 +55,7 @@ Event ID 4625 = successful login:
 </br>
 </br>
 
-Export the failed logon events to a  CSV:
+Export the failed logon events to a  CSV file:
 
 ```powershell
 Get-WinEvent -Path .\Evidence\Security.evtx |
