@@ -74,4 +74,14 @@ Select-Object `
 Export-Csv .\Evidence\SuccessfulLogins.csv -NoTypeInformation
 ```
 
+Determine which Usernames logged in successfully
+
+```powershell
+Import-Csv .\Evidence\SuccessfulLogins.csv | Format-Table
+$events = Import-Csv .\Evidence\SuccessfulLogins.csv
+$events | Group-Object Username | Sort-Object Count -Descending
+```
+</br>
+<img align="center" width="600px" src="https://i.imgur.com/hJDLMWl.png" />
+</br>
 
