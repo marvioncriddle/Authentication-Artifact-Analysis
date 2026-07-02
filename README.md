@@ -47,7 +47,7 @@ Ensure you are working from this evidence file rather than a live system. Mainta
 
 ### Step 2: Identify Successful Authentication
 Filter the Security log for Event ID 4624
-
 <img align="center" width="600px" src="https://i.imgur.com/gqi6o3O.png" />
 
+Examine the successful logon event and note the authentication information
 <img align="center" width="600px" src="https://i.imgur.com/q1rx7nA.png" />
