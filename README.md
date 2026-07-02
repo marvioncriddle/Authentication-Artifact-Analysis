@@ -45,28 +45,21 @@ You have been provided with a preserved Windows Security Event Log (Security.evt
 
 Ensure you are working from this evidence file rather than a live system. Maintaining the integrity of original evidence is a fundamental forensic principle and allows investigators to revisit findings without altering the source data.
 
-### Step 2: Identify Successful Authentication
+### Step 2: Identify Failed Authentication Attempts
 
-Filter the Security log for Event ID 4624
+Filter the Security log for Event ID 4625
 
-Event ID 4624 = successful login
+Event ID 4625 = successful login:
 </br>
-<img align="center" width="600px" src="https://i.imgur.com/gqi6o3O.png" />
+<img align="center" width="600px" src="https://i.imgur.com/71mCTfT.png" />
 </br>
-</br>
-
-
-Examine the successful logon event and note the authentication information
-</br>
-<img align="center" width="600px" src="https://i.imgur.com/q1rx7nA.png" />
 </br>
 
-
-Export the successful logon events to a  CSV:
+Export the failed logon events to a  CSV:
 
 ```powershell
 Get-WinEvent -Path .\Evidence\Security.evtx |
-Where-Object {$_.Id -eq 4624} |
+Where-Object {$_.Id -eq 4625} |
 Select-Object `
     TimeCreated,
     @{Name='Username';Expression={$_.Properties[5].Value}},
@@ -75,17 +68,33 @@ Select-Object `
     @{Name='LogonType';Expression={$_.Properties[10].Value}},
     @{Name='Status';Expression={$_.Properties[7].Value}},
     @{Name='SubStatus';Expression={$_.Properties[9].Value}} |
-Export-Csv .\Evidence\SuccessfulLogins.csv -NoTypeInformation
+Export-Csv .\Evidence\FailedLogins.csv -NoTypeInformation
 ```
 
-Determine which Usernames logged in successfully
-
+Determine which Usernames failed to login:
 ```powershell
-Import-Csv .\Evidence\SuccessfulLogins.csv | Format-Table
-$events = Import-Csv .\Evidence\SuccessfulLogins.csv
+Import-Csv .\Evidence\FailedLogins.csv | Format-Table
+$events = Import-Csv .\Evidence\FailedLogins.csv
 $events | Group-Object Username | Sort-Object Count -Descending
 ```
 </br>
-<img align="center" width="600px" src="https://i.imgur.com/jsFjsJz.png" />
+<img align="center" width="600px" src="https://i.imgur.com/9QFuBKy.png" />
 </br>
 
+Determine when the failures occured:
+```powershell
+$events |
+Sort-Object TimeCreated |
+Select-Object TimeCreated, Username, Workstation, SourceIP, LogonType
+```
+</br>
+<img align="center" width="600px" src="https://i.imgur.com/1gXw8mz.png" />
+</br>
+
+Determine how many failed attempts per user
+```powershell
+$events | Group-Object Username | Select-Object Name, Count
+```
+</br>
+<img align="center" width="600px" src="https://i.imgur.com/zhVFac7.png" />
+</br>
