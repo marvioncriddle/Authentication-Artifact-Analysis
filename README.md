@@ -5,7 +5,7 @@
 
 Authentication failures are among the most common indicators encountered during security monitoring. While repeated failed logins may simply result from a user forgetting a password, they may also indicate password spraying, brute-force attacks, stale credentials, or misconfigured services.
 
-For this lab, Windows 11 virtual machines were deployed to simulate authentication activity. Login failures were intentionally generated to create a realistic dataset for investigation, allowing you to analyze patterns and determine whether the behavior reflects normal user activity or a potential attack.
+A Windows Security Event Log (Security.evtx) has been preserved from a simulated enterprise environment and provided for analysis.  Login failures were intentionally generated to create a realistic dataset for investigation, allowing you to analyze patterns and determine whether the behavior reflects normal user activity or a potential attack.
 
 In this lab, you will investigate a Windows account lockout using native forensic artifacts found in the Windows Security Event Log. Your objective is to determine whether the observed behavior represents malicious activity or normal user behavior by correlating authentication events and documenting your findings as you would during a real-world Digital Forensics and Incident Response (DFIR) investigation.
 
@@ -22,6 +22,7 @@ After completing this lab, you should be able to:
 - Interpret Security Event IDs related to authentication
 - Differentiate failed and successful logon attempts
 - Identify the source of authentication attempts
+- Correlate multiple authentication artifacts to determine root cause
 - Document investigative findings using professional DFIR methodology
 
 ## Windows Artifacts Examined
@@ -34,18 +35,28 @@ This investigation focuses on several key Windows Security events.
 |<p>4624</p>        | <p>Successful logon</p>    |
 |<p>4740</p>        | <p>Account locked out</p>  |
 
-Primary evidence source:
-Security.evtx
+Primary Evidence: Security.evtx
+
+## Investigation Questions
+During this investigation, answer the following:
+- Which user accounts experienced failed authentication attempts?
+- Which workstation initiated those attempts?
+- Which source IP generated the authentication requests?
+- Which Status and SubStatus codes were observed?
+- Which account became locked?
+- Which MITRE ATT&CK technique best aligns with the observed activity?
+- What is the most likely root cause?
+
 
 ## Investigation Workflow
 The investigation follows a methodology commonly used during enterprise DFIR engagements.
-### Step 1: Review Provided Evidence
+### Step 1: Review Evidence
 
 You have been provided with a preserved Windows Security Event Log (Security.evtx).
 
 Ensure you are working from this evidence file rather than a live system. Maintaining the integrity of original evidence is a fundamental forensic principle and allows investigators to revisit findings without altering the source data.
 
-### Step 2: Identify Failed Authentication Attempts
+### Step 2: Analyze Failed Authentication Attempts
 
 Filter the Security log for Event ID 4625
 
@@ -119,7 +130,7 @@ $events | Group-Object SubStatus | Select-Object Name, Count
 -1073741724 = The specified account does not exist
 </br>
 
-### Step 3: Find Lockout Event
+### Step 3: Analyze Account Lockout
 Filter the Security log for Event ID 4740
 
 Event ID 4740 = account lockout event:
@@ -160,7 +171,7 @@ Select-Object TimeCreated
 ## Write Incident Report
 Analysis of Event ID 4625 identified repeated failed network logon attempts against the Sarah, Jonathan, and df1admin accounts originating from source IP 98.122.240.33. The observed Logon Type 3 indicates that the authentication attempts occurred over the network rather than through local console access. The primary Status value, -1073741715 (Hex value=0xC000006D), combined with SubStatus -1073741718 (Hex value=0xC000006A), indicates repeated authentication attempts using valid usernames with incorrect passwords. Additionally, one event contained SubStatus -1073741724 (Hex value=0xC0000064), indicating an authentication attempt against a nonexistent account.
 
-Event ID 4740 confirmed that the Sarah account was locked at 7/1/2026 3:14:50 AM. The Computer Name field identified DESKTOP-OUPA0T1 as the system responsible for generating the lockout event. This same workstation was identified as the source of failed authentication attempts against the Sarah, Jonathan, and df1admin accounts.
+Event ID 4740 confirmed that the Sarah account was locked at 7/1/2026 3:14:50 AM. The Computer Name field identified DESKTOP-OUPA0T1 as the system responsible for generating the lockout event. This same workstation was observed as the source of failed authentication attempts against the Sarah, Jonathan, and df1admin accounts.
 
 Based on the correlation of these authentication artifacts, the observed activity is consistent with a password spraying attack, in which a single source system attempts authentication against multiple user accounts using one or more passwords. While additional evidence such as endpoint telemetry, network logs, or account lockout policy configuration would strengthen the assessment, the available Windows Security Event Log artifacts support this conclusion.
 
