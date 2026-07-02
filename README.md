@@ -58,8 +58,7 @@ Examine the successful logon event and note the authentication information
 <img align="center" width="600px" src="https://i.imgur.com/q1rx7nA.png" />
 </br>
 
-Export the successful logon events toa  CSV
-
+### Export the successful logon events toa  CSV:
 Get-WinEvent -Path .\Evidence\Security.evtx |
 Where-Object {$_.Id -eq 4624} |
 Select-Object `
