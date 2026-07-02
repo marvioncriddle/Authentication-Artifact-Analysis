@@ -51,6 +51,8 @@ Filter the Security log for Event ID 4624
 </br>
 <img align="center" width="600px" src="https://i.imgur.com/gqi6o3O.png" />
 </br>
+
+
 Examine the successful logon event and note the authentication information
 </br>
 <img align="center" width="600px" src="https://i.imgur.com/q1rx7nA.png" />
