@@ -58,3 +58,19 @@ Examine the successful logon event and note the authentication information
 <img align="center" width="600px" src="https://i.imgur.com/q1rx7nA.png" />
 </br>
 
+Export the successful logon events toa  CSV
+
+Get-WinEvent -Path .\Evidence\Security.evtx |
+Where-Object {$_.Id -eq 4624} |
+Select-Object `
+    TimeCreated,
+    @{Name='Username';Expression={$_.Properties[5].Value}},
+    @{Name='Workstation';Expression={$_.Properties[13].Value}},
+    @{Name='SourceIP';Expression={$_.Properties[19].Value}},
+    @{Name='LogonType';Expression={$_.Properties[10].Value}},
+    @{Name='Status';Expression={$_.Properties[7].Value}},
+    @{Name='SubStatus';Expression={$_.Properties[9].Value}} |
+Export-Csv .\Evidence\SuccessfulLogins.csv -NoTypeInformation
+
+
+
