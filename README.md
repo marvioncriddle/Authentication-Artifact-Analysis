@@ -55,10 +55,12 @@ Event ID 4624 = successful login
 </br>
 </br>
 
+
 Examine the successful logon event and note the authentication information
 </br>
 <img align="center" width="600px" src="https://i.imgur.com/q1rx7nA.png" />
 </br>
+
 
 Export the successful logon events to a  CSV:
 
@@ -86,3 +88,4 @@ $events | Group-Object Username | Sort-Object Count -Descending
 </br>
 <img align="center" width="600px" src="https://i.imgur.com/jsFjsJz.png" />
 </br>
+
