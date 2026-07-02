@@ -49,3 +49,5 @@ Ensure you are working from this evidence file rather than a live system. Mainta
 Filter the Security log for Event ID 4624
 
 <img align="center" width="600px" src="https://i.imgur.com/gqi6o3O.png" />
+
+<img align="center" width="600px" src="https://i.imgur.com/q1rx7nA.png" />
