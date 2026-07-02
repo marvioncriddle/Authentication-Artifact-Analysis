@@ -78,7 +78,7 @@ $events = Import-Csv .\Evidence\FailedLogins.csv
 $events | Group-Object Username | Sort-Object Count -Descending
 ```
 </br>
-<img align="center" width="600px" src="https://i.imgur.com/9QFuBKy.png" />
+<img align="center" width="800px" src="https://i.imgur.com/9QFuBKy.png" />
 </br>
 
 Determine when the failures occured:
