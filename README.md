@@ -106,6 +106,7 @@ $events | Group-Object Status | Select-Object Name, Count
 </br>
 <img align="center" width="600px" src="https://i.imgur.com/ftWegJd.png" />
 -1073741715 = Bad username or authentication information. The given credentials aren't correct. This issue might occur due to an incorrect user/password combination or username format
+</br>
 
 Identify the Substatus codes:
 ```powershell
@@ -116,6 +117,37 @@ $events | Group-Object SubStatus | Select-Object Name, Count
 -1073741718 = User logon with misspelled or bad password
 
 -1073741724 = The specified account does not exist
+</br>
 
+### Step 3: Find Lockout Event
+Filter the Security log for Event ID 4740
 
+Event ID 4740 = account lockout event:
+</br>
+<img align="center" width="600px" src="https://i.imgur.com/SiUKrK9.png" />
+</br>
+
+Display the XML field names to determine which user account was locked
+```powershell
+Get-WinEvent -Path ".\Evidence\Security.evtx" |
+Where-Object {$_.Id -eq 4740} |
+Select-Object -First 1 |
+ForEach-Object {
+    [xml]$xml = $_.ToXml()
+    $xml.Event.EventData.Data
+}
+```
+</br>
+<img align="center" width="600px" src="https://i.imgur.com/0ktKNYT.png" />
+</br>
+
+Determine when the user's account was locked
+```powershell
+Get-WinEvent -Path ".\Evidence\Security.evtx" |
+Where-Object {$_.Id -eq 4740} |
+Select-Object TimeCreated
+```
+</br>
+<img align="center" width="600px" src="https://i.imgur.com/xQVT4NM.png" />
+</br>
 
