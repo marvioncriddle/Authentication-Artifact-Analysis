@@ -49,13 +49,13 @@ Ensure you are working from this evidence file rather than a live system. Mainta
 
 Filter the Security log for Event ID 4625
 
-Event ID 4625 = successful login:
+Event ID 4625 = failed logon event:
 </br>
 <img align="center" width="600px" src="https://i.imgur.com/71mCTfT.png" />
 </br>
 </br>
 
-Export the failed logon events to a  CSV file:
+Export the failed logon events to a CSV file:
 
 ```powershell
 Get-WinEvent -Path .\Evidence\Security.evtx |
@@ -71,7 +71,7 @@ Select-Object `
 Export-Csv .\Evidence\FailedLogins.csv -NoTypeInformation
 ```
 
-Determine which Usernames failed to login:
+Determine which Usernames failed to logon:
 ```powershell
 Import-Csv .\Evidence\FailedLogins.csv | Format-Table
 $events = Import-Csv .\Evidence\FailedLogins.csv
@@ -98,3 +98,23 @@ $events | Group-Object Username | Select-Object Name, Count
 </br>
 <img align="center" width="600px" src="https://i.imgur.com/zhVFac7.png" />
 </br>
+
+Identify the Status code:
+```powershell
+$events | Group-Object Status | Select-Object Name, Count
+```
+-1073741715 = Bad username or authentication information - The given credentials aren't correct. This issue might occur due to an incorrect user/password combination or username format. [Reference](https://learn.microsoft.com/en-us/troubleshoot/power-platform/power-automate/desktop-flows/invalid-credentials-errors-running-desktop-flows#:~:text=without%20this%20requirement.-,%2D1073741715,-Bad%20username%20or)
+</br>
+<img align="center" width="600px" src="https://i.imgur.com/ftWegJd.png" />
+</br>
+
+Identify the Substatus codes:
+```powershell
+$events | Group-Object SubStatus | Select-Object Name, Count
+```
+-1073741718 = User logon with misspelled or bad password [Reference](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4625#:~:text=Information%5CSub%20Status-,0xC000006A,-%E2%80%93%20%22User%20logon%20with)
+-1073741724 = The specified account does not exist[Reference](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/596a1078-e883-4972-9bbc-49e60bebca55#:~:text=account%20already%20exists.-,0xC0000064,-STATUS_NO_SUCH_USER)
+</br>
+<img align="center" width="600px" src="https://i.imgur.com/4sITG9I.png" />
+</br>
+
