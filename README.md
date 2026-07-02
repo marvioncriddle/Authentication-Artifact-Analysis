@@ -82,6 +82,6 @@ $events = Import-Csv .\Evidence\SuccessfulLogins.csv
 $events | Group-Object Username | Sort-Object Count -Descending
 ```
 </br>
-<img align="center" width="600px" src="https://i.imgur.com/hJDLMWl.png" />
+<img align="center" width="1000px" src="https://i.imgur.com/hJDLMWl.png" />
 </br>
 
