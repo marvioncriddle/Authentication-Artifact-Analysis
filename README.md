@@ -113,6 +113,7 @@ Identify the Substatus codes:
 $events | Group-Object SubStatus | Select-Object Name, Count
 ```
 -1073741718 = User logon with misspelled or bad password [(Reference).](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4625#:~:text=Information%5CSub%20Status-,0xC000006A,-%E2%80%93%20%22User%20logon%20with)
+
 -1073741724 = The specified account does not exist [(Reference).](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/596a1078-e883-4972-9bbc-49e60bebca55#:~:text=account%20already%20exists.-,0xC0000064,-STATUS_NO_SUCH_USER)
 </br>
 <img align="center" width="600px" src="https://i.imgur.com/4sITG9I.png" />
