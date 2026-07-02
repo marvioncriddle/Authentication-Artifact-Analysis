@@ -56,7 +56,23 @@ You have been provided with a preserved Windows Security Event Log (Security.evt
 
 Ensure you are working from this evidence file rather than a live system. Maintaining the integrity of original evidence is a fundamental forensic principle and allows investigators to revisit findings without altering the source data.
 
-### Step 2: Analyze Failed Authentication Attempts
+### Step 2: Triage Key Authentication Events
+
+Filter the Security log for the key authentication-related Event IDs
+```powershell
+Get-WinEvent -Path .\Evidence\Security.evtx |
+Where-Object {$_.Id -in 4625, 4624, 4740} |
+Group-Object Id |
+Sort-Object Count -Descending |
+Select-Object @{Name='EventID';Expression={$_.Name}}, Count |
+Format-Table -AutoSize
+```
+</br>
+<img align="center" width="600px" src="https://i.imgur.com/GgIBjg7.png" />
+</br>
+</br>
+
+### Step 3: Analyze Failed Authentication Attempts
 
 Filter the Security log for Event ID 4625
 
@@ -130,7 +146,7 @@ $events | Group-Object SubStatus | Select-Object Name, Count
 -1073741724 = The specified account does not exist
 </br>
 
-### Step 3: Analyze Account Lockout
+### Step 4: Analyze Account Lockout
 Filter the Security log for Event ID 4740
 
 Event ID 4740 = account lockout event:
